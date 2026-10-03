@@ -12,6 +12,14 @@ enum class GameState {
     LevelComplete
 };
 
+struct Star
+{
+    sf::CircleShape shape;
+    float brightness;
+    float twinkleSpeed;
+    float direction;
+};
+
 
 struct Bricks {
     sf::Sprite shape;
@@ -25,6 +33,7 @@ struct Bricks {
 
 int main (){
 
+    int STAR_COUNT = 100;
 
     int brickCount = 0;
     int score = 0;
@@ -60,6 +69,29 @@ int main (){
     "00111100"
 };
     GameState gameState = GameState::Playing;
+
+    std::vector<Star> stars;
+
+
+for (int i = 0; i < STAR_COUNT; i++)
+{
+    Star star;
+
+    star.shape.setRadius(1.f);
+
+    star.shape.setPosition({
+        static_cast<float>(rand() % static_cast<int>(MAX_WIDTH)),
+        static_cast<float>(rand() % static_cast<int>(MAX_HEIGHT))
+    });
+
+
+
+    star.brightness = 100.f + rand() % 100;
+    star.twinkleSpeed = 20.f + rand() % 100;
+    star.direction = 1.f;
+
+    stars.push_back(star);
+}
 
 
 
@@ -230,7 +262,24 @@ paddle.setOrigin({
 
     while (window.isOpen()){
 
+
     float deltaTime = clock.restart().asSeconds();
+
+    for (auto &star : stars)
+    {
+        star.brightness += star.twinkleSpeed * star.direction * deltaTime;
+        if (star.brightness >= 255.f)
+            {
+                star.brightness = 255.f;
+                star.direction = -1.f;
+            }
+
+        if (star.brightness <= 50.f)
+            {
+                star.brightness = 50.f;
+                star.direction = 1.f;
+            }
+    }
 
 
      while (std::optional event = window.pollEvent()){
@@ -420,7 +469,15 @@ paddle.setOrigin({
             gameState = GameState::LevelComplete;
         }
 
-         window.clear();
+         //window.clear();
+
+        window.clear(sf::Color(5, 5, 12));
+
+            for (auto& star : stars)
+            {
+                star.shape.setFillColor(sf::Color(255,255,255,star.brightness));
+                window.draw(star.shape);
+            }
 
 
         for(auto &it: bricks){
@@ -440,7 +497,14 @@ paddle.setOrigin({
 
 
 
+            window.clear(sf::Color(5, 5, 12));
 
+            for (auto& star : stars)
+            {
+                star.shape.setFillColor(sf::Color(255,255,255,star.brightness));
+
+                window.draw(star.shape);
+            }        
 
 
         for(auto &it: bricks){
