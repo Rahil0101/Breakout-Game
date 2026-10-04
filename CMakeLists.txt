@@ -16,6 +16,7 @@ add_executable(Breakout
     src/LoadAssets.cpp
     src/Paddle.cpp
     src/Brick.cpp
+    include/LevelConfig.hpp
 )
 
 target_link_libraries(Breakout PRIVATE

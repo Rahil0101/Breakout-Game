@@ -9,7 +9,7 @@ Brick::Brick(sf::Texture& texture , float BRICK_LENGTH, float BRICK_HEIGHT) : sh
      sf::FloatRect brick_bounds = shape.getLocalBounds();
 
     shape.setScale({ BRICK_LENGTH / brick_bounds.size.x , BRICK_HEIGHT / brick_bounds.size.y});
-    shape.setOrigin({0.f, 0.f}); 
+    shape.setOrigin({0.f, 0.f});
 }
 
 sf::FloatRect Brick::get_global_bounds()
