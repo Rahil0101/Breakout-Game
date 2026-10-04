@@ -9,6 +9,13 @@ find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
 
 add_executable(Breakout
     src/main.cpp
+    include/Game.hpp
+    include/Ball.hpp
+    src/Ball.cpp
+    src/Game.cpp
+    src/LoadAssets.cpp
+    src/Paddle.cpp
+    src/Brick.cpp
 )
 
 target_link_libraries(Breakout PRIVATE

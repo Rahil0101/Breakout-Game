@@ -73,12 +73,7 @@ int main (){
         "Breakout"
     );
 
-    sf::Font font;
-
-    if (!font.openFromFile("assets/Robo-Italica.ttf"))
-        {
-            return 1;
-        }
+    
     sf::Texture red_brick_texture;
     red_brick_texture.setSmooth(true);
     sf::Texture ball_texture;
@@ -132,13 +127,7 @@ paddle.setOrigin({
 
 
 
-    sf::FloatRect ball_bounds = ball.getLocalBounds();
-
-   // sf::CircleShape ball(RADIUS);
-    ball.setScale({ RADIUS*2.f/ball_bounds.size.x , RADIUS*2.f / ball_bounds.size.y});
-
-    
-    ball.setOrigin({ball_bounds.size.x/2.f , ball_bounds.size.y/2.f});
+   
 
     sf::FloatRect ball_global = ball.getGlobalBounds();
 
@@ -159,7 +148,7 @@ paddle.setOrigin({
             if (level1[i][j] == '1')
             {
             Bricks brick (red_brick_texture);
-            brick.shape.setOrigin({0.f, 0.f});
+          
 
             brick.shape.setPosition({startx + j * spacingx , starty + i * spacingy});
 
